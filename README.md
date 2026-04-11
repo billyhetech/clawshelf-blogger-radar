@@ -1,6 +1,6 @@
 # 📡 Blogger Radar
 
-> Daily AI-powered intelligence briefing on the creators you track — across Twitter/X, Xiaohongshu, YouTube, Substack, and GitHub.
+> Daily AI-powered intelligence briefing on the creators you track — across Twitter/X, YouTube, Substack, and GitHub.
 
 **Built for [`billyhetech`](https://github.com/billyhetech)** · AI Application Architect · Build in Public
 
@@ -29,10 +29,10 @@ Each briefing includes:
 | Platform | Method | Auth |
 |---|---|---|
 | Twitter / X | Official API v2 · Nitter RSS fallback | Bearer Token (optional) |
-| Xiaohongshu | RSSHub bridge | Self-hosted RSSHub (optional) |
 | YouTube | Data API v3 | API Key (optional) |
 | Substack | RSS feed | None |
 | GitHub | REST API v3 | Token (optional, for higher limits) |
+| Xiaohongshu | RSSHub bridge | Self-hosted RSSHub (optional) — *Chinese creators only* |
 
 ### Push channels
 

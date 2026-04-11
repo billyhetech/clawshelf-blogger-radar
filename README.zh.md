@@ -29,10 +29,10 @@
 | 平台 | 抓取方式 | 是否需要 Key |
 |---|---|---|
 | Twitter / X | 官方 API v2 · Nitter RSS 备用 | Bearer Token（可选） |
-| Xiaohongshu | RSSHub 桥接 | 自建 RSSHub（可选） |
 | YouTube | Data API v3 | API Key（可选） |
 | Substack | RSS Feed | 无需 |
 | GitHub | REST API v3 | Token（可选，提升限额） |
+| Xiaohongshu | RSSHub 桥接 | 自建 RSSHub（可选）— *中文创作者专属* |
 
 ### 推送渠道
 
@@ -150,6 +150,8 @@ python scripts/run_radar.py --platform github  # 只抓取指定平台
 **新增推送渠道**：在 `scripts/pushers/` 新建 pusher 文件，实现 `async def push(self, report) -> bool`，在 `PUSHER_REGISTRY` 中注册。
 
 ### 小红书注意事项
+
+> 小红书平台仅适用于追踪**中文内容创作者**。如果你主要追踪英文 AI 创作者，可跳过此部分。
 
 小红书没有公开 API，反爬机制较强。本项目通过 **RSSHub** 桥接，建议自建实例：
 

@@ -1,119 +1,189 @@
 # ============================================================
-# blogger-radar / config / bloggers.yaml
-# Blogger tracking configuration
+# blogger-radar / config / bloggers.example.yaml
+# Default TOP 30 AI Builders — curated for content intelligence
 # ============================================================
 # Instructions:
-#   - Copy this file to bloggers.yaml and edit it
-#   - Each blogger's `id` must be unique (lowercase letters and hyphens only)
-#   - Each platform can be toggled independently with enabled: true/false
-#   - `tags` are used for report grouping and filtering
+#   - Copy to bloggers.yaml and enable the creators you want
+#   - Each blogger's `id` must be unique (lowercase, hyphens only)
+#   - Toggle individual platforms with enabled: true/false
+#   - `tags` control report grouping and filtering
+#   - `note` appears in the report header for each blogger
+# ============================================================
+# Source: curated from Miles Deutscher's Top 50 AI Accounts (2026.02),
+# Sophia Hodlberg's ULTIMATE AI Builder List, and Zara Zhang's
+# follow-builders project. Principle: follow builders, not influencers.
 # ============================================================
 
 bloggers:
 
-  # -- Example 1: AI engineer / indie developer ----------------
+# =============================================================
+# Category 1: General Alpha — Core Thought Leaders (5)
+# =============================================================
+
+  - id: karpathy
+    name: "Andrej Karpathy"
+    tags: [General-Alpha, AI-Education, Technical]
+    note: "AI educator, ex-OpenAI/Tesla, author of the 'Neural Networks: Zero to Hero' series"
+    platforms:
+      twitter:
+        handle: "@karpathy"
+        enabled: true
+      github:
+        username: "karpathy"
+        enabled: true
+        watch_repos: ["micrograd", "minGPT", "nanoGPT", "llm.c"]
+      youtube:
+        channel_id: "UCXUPKJO5MZQMU11wm6N7VqQ"  # verify at youtube.com/@AndrejKarpathy
+        enabled: true
+        max_videos: 3
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: sama
+    name: "Sam Altman"
+    tags: [General-Alpha, OpenAI]
+    note: "CEO of OpenAI — first signal source for industry direction"
+    platforms:
+      twitter:
+        handle: "@sama"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: ylecun
+    name: "Yann LeCun"
+    tags: [General-Alpha, Research, Meta]
+    note: "Meta Chief AI Scientist, Turing Award winner, one of the AI 'Godfathers'"
+    platforms:
+      twitter:
+        handle: "@ylecun"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: geoffrey-hinton
+    name: "Geoffrey Hinton"
+    tags: [General-Alpha, Research]
+    note: "Nobel laureate, AI 'Godfather', deep learning pioneer"
+    platforms:
+      twitter:
+        handle: "@geoffreyhinton"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: john-carmack
+    name: "John Carmack"
+    tags: [General-Alpha, Technical, AGI]
+    note: "DOOM creator, now pursuing AGI — extremely high technical density"
+    platforms:
+      twitter:
+        handle: "@ID_AA_Carmack"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+# =============================================================
+# Category 2: Technical Builders — Framework & Toolchain (8)
+# =============================================================
+
   - id: swyx
     name: "swyx (Shawn Wang)"
-    tags: [AI-Engineering, Build-in-Public, Indie]
-    note: "Coined 'AI Engineer', sharp observer of the AI opportunity curve"
+    tags: [Technical, Build-in-Public, AI-Engineering]
+    note: "Coined 'AI Engineer', co-hosts Latent Space podcast, sharp AI opportunity observer"
     platforms:
       twitter:
         handle: "@swyx"
         enabled: true
-      substack:
-        slug: "swyx"                    # substack.com/swyx
-        enabled: true
       github:
         username: "swyxio"
         enabled: true
-        watch_repos: ["ai-notes", "aiux"]  # leave empty to watch all public activity
-      youtube:
-        channel_id: ""                  # leave empty to skip
-        enabled: false
-      xiaohongshu:
-        uid: ""
-        enabled: false
-
-  # -- Example 2: Chinese AI creator (dual-platform) ----------
-  - id: guizang
-    name: "Guizang"
-    tags: [AI-Tools, Prompt-Engineering, Chinese]
-    note: "Top Chinese Prompt Engineering creator on Xiaohongshu and X"
-    platforms:
-      twitter:
-        handle: "@op7418"
-        enabled: true
-      xiaohongshu:
-        uid: "5c2e8a39000000001202d6a0"  # from profile URL: xiaohongshu.com/user/profile/{uid}
-        enabled: true
-      github:
-        username: "op7418"
-        enabled: true
-        watch_repos: []                 # empty = watch all public activity
+        watch_repos: ["ai-notes", "aiux"]
       youtube:
         channel_id: ""
         enabled: false
       substack:
-        slug: ""
-        enabled: false
+        slug: "latentspace"            # latent.space — Latent Space podcast newsletter
+        enabled: true
 
-  # -- Example 3: English AI engineering blogger ---------------
   - id: simon-willison
     name: "Simon Willison"
-    tags: [AI-Engineering, Open-Source, LLM]
-    note: "Creator of Datasette, prolific LLM toolchain builder"
+    tags: [Technical, Open-Source, LLM]
+    note: "Creator of Datasette and the llm CLI — daily blog with concrete, actionable posts"
     platforms:
       twitter:
         handle: "@simonw"
         enabled: true
-      substack:
-        slug: ""
-        enabled: false
       github:
         username: "simonw"
         enabled: true
-        watch_repos: ["llm", "datasette", "shot-scraper"]
+        watch_repos: ["llm", "datasette", "shot-scraper", "sqlite-utils"]
       youtube:
         channel_id: ""
         enabled: false
-      xiaohongshu:
-        uid: ""
+      substack:
+        slug: ""
         enabled: false
 
-  # -- Example 4: YouTube tech channel -------------------------
-  - id: matt-wolfe
-    name: "Matt Wolfe"
-    tags: [AI-Tools, YouTube]
-    note: "Popular YouTube reviewer of AI tools and products"
+  - id: jason-liu
+    name: "Jason Liu"
+    tags: [Technical, RAG, AI-Engineering]
+    note: "Author of Instructor framework — authority on structured LLM output and RAG"
     platforms:
       twitter:
-        handle: "@mreflow"
+        handle: "@jxnlco"
         enabled: true
-      youtube:
-        channel_id: "UCPkPzSCZHDY4faNL2DTQMYQ"  # from channel About page
-        enabled: true
-        max_videos: 5               # max number of recent videos to fetch
-      substack:
-        slug: "mattwolfe"
-        enabled: false
       github:
-        username: ""
+        username: "jxnl"
+        enabled: true
+        watch_repos: ["instructor", "rag-playbook"]
+      youtube:
+        channel_id: ""
         enabled: false
-      xiaohongshu:
-        uid: ""
-        enabled: false
+      substack:
+        slug: "jxnl"                  # jxnl.substack.com
+        enabled: true
 
-  # -- Example 5: RAG / vector database focus ------------------
   - id: jerry-liu
     name: "Jerry Liu (LlamaIndex)"
-    tags: [RAG, LlamaIndex, AI-Engineering]
-    note: "Co-founder of LlamaIndex, authority on RAG techniques"
+    tags: [Technical, RAG, LlamaIndex]
+    note: "Co-founder of LlamaIndex — authority on Agentic RAG systems"
     platforms:
       twitter:
         handle: "@jerryjliu0"
-        enabled: true
-      substack:
-        slug: "llamaindex"
         enabled: true
       github:
         username: "jerryjliu"
@@ -122,12 +192,486 @@ bloggers:
       youtube:
         channel_id: ""
         enabled: false
-      xiaohongshu:
-        uid: ""
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: harrison-chase
+    name: "Harrison Chase"
+    tags: [Technical, LangChain, AI-Engineering]
+    note: "Founder of LangChain — most widely used LLM application framework"
+    platforms:
+      twitter:
+        handle: "@hwchase17"
+        enabled: true
+      github:
+        username: "hwchase17"
+        enabled: true
+        watch_repos: ["langchain", "langsmith-sdk"]
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: jeremy-howard
+    name: "Jeremy Howard"
+    tags: [Technical, AI-Education, Open-Source]
+    note: "Co-founder of fast.ai — pragmatic AI education, 200+ free lessons on YouTube"
+    platforms:
+      twitter:
+        handle: "@jeremyphoward"
+        enabled: true
+      github:
+        username: "fastai"
+        enabled: true
+        watch_repos: ["fastai", "fastbook", "nbdev"]
+      youtube:
+        channel_id: ""               # fast.ai channel — search 'fast.ai Jeremy Howard' to get ID
+        enabled: false
+
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: david-ha
+    name: "David Ha"
+    tags: [Technical, Research, Creative-AI]
+    note: "Ex-Google Brain research director — creative AI, generative models, world models"
+    platforms:
+      twitter:
+        handle: "@hardmaru"
+        enabled: true
+      github:
+        username: "hardmaru"
+        enabled: true
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: shreya-shankar
+    name: "Shreya Shankar"
+    tags: [Technical, AI-Engineering, Data]
+    note: "AI Engineering researcher — ML data quality, LLM evaluation, and production AI"
+    platforms:
+      twitter:
+        handle: "@sh_reya"
+        enabled: true
+      github:
+        username: "shreyashankar"
+        enabled: true
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+# =============================================================
+# Category 3: AI × Business/Product — Applied AI Leaders (5)
+# =============================================================
+
+  - id: aaron-levie
+    name: "Aaron Levie"
+    tags: [AI-Business, Enterprise, Product]
+    note: "Box CEO — strongest practical voice on enterprise AI deployment and ROI"
+    platforms:
+      twitter:
+        handle: "@levie"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: dan-shipper
+    name: "Dan Shipper"
+    tags: [AI-Business, Writing, Product]
+    note: "CEO of Every — deep analysis on AI × knowledge work and writing"
+    platforms:
+      twitter:
+        handle: "@danshipper"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: "every"                 # every.substack.com — Every bundle
+        enabled: true
+
+  - id: ethan-mollick
+    name: "Ethan Mollick"
+    tags: [AI-Business, Education, Research]
+    note: "Wharton professor — bridges academic AI research and practical business use"
+    platforms:
+      twitter:
+        handle: "@emollick"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: "oneusefulthing"        # oneusefulthing.substack.com — 418K+ subscribers
+        enabled: true
+
+  - id: peter-yang
+    name: "Peter Yang"
+    tags: [AI-Business, Product, Creator-Economy]
+    note: "AI × Product thinking — 'Behind the Craft' newsletter on Creator Economy"
+    platforms:
+      twitter:
+        handle: "@petergyang"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: "petergyang"            # substack.com/@petergyang — Behind the Craft
+        enabled: true
+
+  - id: kevin-weil
+    name: "Kevin Weil"
+    tags: [AI-Business, OpenAI, Product]
+    note: "Chief Product Officer at OpenAI — first-hand product strategy signals"
+    platforms:
+      twitter:
+        handle: "@kevinweil"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+# =============================================================
+# Category 4: AI × Content/Media — Content Creators (4)
+# =============================================================
+
+  - id: matt-wolfe
+    name: "Matt Wolfe"
+    tags: [AI-Content, YouTube, AI-Tools]
+    note: "Most-viewed AI tools reviewer on YouTube — leading trend indicator"
+    platforms:
+      twitter:
+        handle: "@mreflow"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: "UCPkPzSCZHDY4faNL2DTQMYQ"  # Future Tools — verify at youtube.com/@mreflow
+        enabled: true
+        max_videos: 5
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: matthew-berman
+    name: "Matthew Berman"
+    tags: [AI-Content, YouTube, AI-Tools]
+    note: "Ultra-fast AI tool reviewer on YouTube — 530K+ subscribers, often first to test new releases"
+    platforms:
+      twitter:
+        handle: "@MatthewBerman"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: "UCawZsQWqfGSbCI5yjkdVkTA"   # Matthew Berman — verified
+        enabled: true
+        max_videos: 5
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: greg-isenberg
+    name: "Greg Isenberg"
+    tags: [AI-Content, Community, Startups]
+    note: "Startup Ideas podcast host — community + AI business strategy"
+    platforms:
+      twitter:
+        handle: "@gregisenberg"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: "UCPjNBjflYl0-HQtUvOx0Ibw"   # Startup Ideas Podcast — verify at youtube.com/@GregIsenberg
+        enabled: true
+        max_videos: 5
+      substack:
+        slug: "latecheckout"          # latecheckout.substack.com — Greg's Letter
+        enabled: true
+
+  - id: riley-goodside
+    name: "Riley Goodside"
+    tags: [AI-Content, Prompt-Engineering]
+    note: "Prompt engineering pioneer — Staff Researcher at Scale AI"
+    platforms:
+      twitter:
+        handle: "@goodside"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+# =============================================================
+# Category 5: Vibe Coding & Indie Hackers (5)
+# =============================================================
+
+  - id: steipete
+    name: "Peter Steinberger"
+    tags: [Indie-Hacker, Vibe-Coding, OpenClaw]
+    note: "PSPDFKit founder, most active OpenClaw skill author, vibe coding early adopter"
+    platforms:
+      twitter:
+        handle: "@steipete"
+        enabled: true
+      github:
+        username: "steipete"
+        enabled: true
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""                      # uses personal blog at steipete.me, no Substack
+        enabled: false
+
+  - id: marc-lou
+    name: "Marc Lou"
+    tags: [Indie-Hacker, Vibe-Coding, SaaS]
+    note: "Ship-fast SaaS builder — new benchmark for AI indie hacker speed"
+    platforms:
+      twitter:
+        handle: "@marclou"
+        enabled: true
+      github:
+        username: "marclou"           # github.com/marclou — verified
+        enabled: true
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: meng-to
+    name: "Meng To"
+    tags: [Indie-Hacker, Design, Vibe-Coding]
+    note: "Design+Code creator — Design × AI, visual side of vibe coding"
+    platforms:
+      twitter:
+        handle: "@MengTo"
+        enabled: true
+      github:
+        username: "MengTo"
+        enabled: true
+        watch_repos: ["Spring", "DesignCode"]
+      youtube:
+        channel_id: ""               # Design+Code YouTube — search 'DesignCode Meng To' to get ID
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: amjad-massad
+    name: "Amjad Massad"
+    tags: [Indie-Hacker, Vibe-Coding, Developer-Tools]
+    note: "Replit CEO — pioneered AI-native coding environments, vibe coding infrastructure"
+    platforms:
+      twitter:
+        handle: "@amasad"
+        enabled: true
+      github:
+        username: "amasad"
+        enabled: true
+        watch_repos: []
+      youtube:
+        channel_id: ""               # no dedicated personal YouTube channel
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: levelsio
+    name: "Pieter Levels"
+    tags: [Indie-Hacker, Build-in-Public, AI-Startups]
+    note: "Indie Hacker godfather — building AI startups live, $5M+ ARR solo"
+    platforms:
+      twitter:
+        handle: "@levelsio"
+        enabled: true
+      github:
+        username: "levelsio"
+        enabled: true
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+# =============================================================
+# Category 6: Product Leaders — Platform & Ecosystem (3)
+# =============================================================
+
+  - id: guillermo-rauch
+    name: "Guillermo Rauch"
+    tags: [Product-Leader, Developer-Tools, Vercel]
+    note: "Vercel CEO — AI × developer experience, Next.js and AI SDK ecosystem"
+    platforms:
+      twitter:
+        handle: "@rauchg"
+        enabled: true
+      github:
+        username: "rauchg"
+        enabled: true
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: garry-tan
+    name: "Garry Tan"
+    tags: [Product-Leader, YC, Startups]
+    note: "YC President — strongest signal on what AI startups are getting funded"
+    platforms:
+      twitter:
+        handle: "@garrytan"
+        enabled: true
+      github:
+        username: ""
+        enabled: false
+        watch_repos: []
+      youtube:
+        channel_id: "UCIBgYfDjtWlbJhg--Z4sOgQ"   # Garry Tan — 231K+ subscribers, verified
+        enabled: true
+        max_videos: 3
+      substack:
+        slug: ""
+        enabled: false
+
+  - id: matt-shumer
+    name: "Matt Shumer"
+    tags: [Product-Leader, LLM, AI-Startups]
+    note: "CEO of Hyperspace — frontier LLM applications and agent infrastructure"
+    platforms:
+      twitter:
+        handle: "@mattshumer_"
+        enabled: true
+      github:
+        username: "mshumer"           # github.com/mshumer — verified
+        enabled: true
+        watch_repos: []
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
         enabled: false
 
 # ============================================================
-# Add a new blogger — copy this template and fill it in
+# Expansion Pack — uncomment to add more creators
+# ============================================================
+#
+# - id: matt-turck
+#   name: "Matt Turck"
+#   tags: [AI-Business, VC, Analysis]
+#   note: "FirstMark Capital VC, publishes the annual AI/ML landscape map"
+#   platforms:
+#     twitter: { handle: "@mattturck", enabled: true }
+#     substack: { slug: "matturck", enabled: false }
+#     github: { username: "", enabled: false, watch_repos: [] }
+#     youtube: { channel_id: "", enabled: false }
+#
+# - id: min-choi
+#   name: "Min Choi"
+#   tags: [AI-Content, AI-Tools]
+#   note: "High-frequency AI demos and product updates"
+#   platforms:
+#     twitter: { handle: "@minchoi", enabled: true }
+#     github: { username: "", enabled: false, watch_repos: [] }
+#     youtube: { channel_id: "", enabled: false }
+#     substack: { slug: "", enabled: false }
+#
+# - id: miles-deutscher
+#   name: "Miles Deutscher"
+#   tags: [AI-Content, Curation]
+#   note: "Author of the Top 50 AI Accounts list (1077 likes, Feb 2026)"
+#   platforms:
+#     twitter: { handle: "@milesdeutscher", enabled: true }
+#     github: { username: "", enabled: false, watch_repos: [] }
+#     youtube: { channel_id: "", enabled: false }
+#     substack: { slug: "", enabled: false }
+#
+# - id: aiden-bai
+#   name: "Aiden Bai"
+#   tags: [Technical, Vibe-Coding, Frontend]
+#   note: "Creator of react-scan, active AI tooling builder"
+#   platforms:
+#     twitter: { handle: "@aidenybai", enabled: true }
+#     github: { username: "aidenybai", enabled: true, watch_repos: ["react-scan"] }
+#     youtube: { channel_id: "", enabled: false }
+#     substack: { slug: "", enabled: false }
+#
+# - id: josh-woodward
+#   name: "Josh Woodward"
+#   tags: [Technical, Google, AI-Tools]
+#   note: "Google Labs lead — builds AI experiments at Google"
+#   platforms:
+#     twitter: { handle: "@joshwoodward", enabled: true }
+#     github: { username: "", enabled: false, watch_repos: [] }
+#     youtube: { channel_id: "", enabled: false }
+#     substack: { slug: "", enabled: false }
+
+# ============================================================
+# Add a new blogger — copy this template
 # ============================================================
 # - id: unique-slug
 #   name: "Display Name"
@@ -136,10 +680,11 @@ bloggers:
 #   platforms:
 #     twitter:
 #       handle: "@handle"
+#       enabled: true
+#     github:
+#       username: ""
 #       enabled: false
-#     xiaohongshu:
-#       uid: ""
-#       enabled: false
+#       watch_repos: []
 #     youtube:
 #       channel_id: ""
 #       enabled: false
@@ -147,7 +692,6 @@ bloggers:
 #     substack:
 #       slug: ""
 #       enabled: false
-#     github:
-#       username: ""
+#     xiaohongshu:                    # for Chinese creators on XHS
+#       uid: ""
 #       enabled: false
-#       watch_repos: []

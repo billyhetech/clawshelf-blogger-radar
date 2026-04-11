@@ -9,6 +9,7 @@ then calls this script to handle delivery. This script has NO LLM dependency.
 Usage:
   python scripts/deliver.py --report /tmp/br-report.txt
   python scripts/deliver.py --report /tmp/br-report.txt --config ~/.blogger-radar/config.json
+  python scripts/deliver.py --report /tmp/br-report.txt --env ~/.blogger-radar/.env
   python scripts/deliver.py --report /tmp/br-report.txt --channel slack
   python scripts/deliver.py --report /tmp/br-report.txt --dry-run
 """
@@ -60,10 +61,16 @@ def load_env(env_path: Path | None = None) -> None:
     """Load .env file into environment variables if dotenv is available."""
     try:
         from dotenv import load_dotenv
-        path = env_path or (ROOT / ".env")
-        if path.exists():
-            load_dotenv(path)
-            log.debug(f"Loaded env from {path}")
+        # Search order: explicit path → ~/.blogger-radar/.env → skill root .env
+        candidates = [env_path] if env_path else [
+            Path.home() / ".blogger-radar" / ".env",
+            ROOT / ".env",
+        ]
+        for path in candidates:
+            if path and path.exists():
+                load_dotenv(path)
+                log.debug(f"Loaded env from {path}")
+                break
     except ImportError:
         pass  # python-dotenv not installed; rely on shell-exported vars
 
@@ -128,7 +135,8 @@ def build_channel_cfg(channel_entry: dict) -> dict:
 
 
 async def run(args) -> None:
-    load_env()
+    env_path = Path(args.env).expanduser() if args.env else None
+    load_env(env_path)
 
     # -- Read report -----------------------------------------------
     report_path = Path(args.report)
@@ -232,6 +240,11 @@ if __name__ == "__main__":
         "--channel",
         type=str,
         help="Push to this specific channel only (overrides config)",
+    )
+    parser.add_argument(
+        "--env",
+        type=str,
+        help="Path to .env credentials file (default: ~/.blogger-radar/.env then skill root .env)",
     )
     parser.add_argument(
         "--dry-run",
