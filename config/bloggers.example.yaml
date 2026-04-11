@@ -1,0 +1,153 @@
+# ============================================================
+# blogger-radar / config / bloggers.yaml
+# Blogger tracking configuration
+# ============================================================
+# Instructions:
+#   - Copy this file to bloggers.yaml and edit it
+#   - Each blogger's `id` must be unique (lowercase letters and hyphens only)
+#   - Each platform can be toggled independently with enabled: true/false
+#   - `tags` are used for report grouping and filtering
+# ============================================================
+
+bloggers:
+
+  # -- Example 1: AI engineer / indie developer ----------------
+  - id: swyx
+    name: "swyx (Shawn Wang)"
+    tags: [AI-Engineering, Build-in-Public, Indie]
+    note: "Coined 'AI Engineer', sharp observer of the AI opportunity curve"
+    platforms:
+      twitter:
+        handle: "@swyx"
+        enabled: true
+      substack:
+        slug: "swyx"                    # substack.com/swyx
+        enabled: true
+      github:
+        username: "swyxio"
+        enabled: true
+        watch_repos: ["ai-notes", "aiux"]  # leave empty to watch all public activity
+      youtube:
+        channel_id: ""                  # leave empty to skip
+        enabled: false
+      xiaohongshu:
+        uid: ""
+        enabled: false
+
+  # -- Example 2: Chinese AI creator (dual-platform) ----------
+  - id: guizang
+    name: "Guizang"
+    tags: [AI-Tools, Prompt-Engineering, Chinese]
+    note: "Top Chinese Prompt Engineering creator on Xiaohongshu and X"
+    platforms:
+      twitter:
+        handle: "@op7418"
+        enabled: true
+      xiaohongshu:
+        uid: "5c2e8a39000000001202d6a0"  # from profile URL: xiaohongshu.com/user/profile/{uid}
+        enabled: true
+      github:
+        username: "op7418"
+        enabled: true
+        watch_repos: []                 # empty = watch all public activity
+      youtube:
+        channel_id: ""
+        enabled: false
+      substack:
+        slug: ""
+        enabled: false
+
+  # -- Example 3: English AI engineering blogger ---------------
+  - id: simon-willison
+    name: "Simon Willison"
+    tags: [AI-Engineering, Open-Source, LLM]
+    note: "Creator of Datasette, prolific LLM toolchain builder"
+    platforms:
+      twitter:
+        handle: "@simonw"
+        enabled: true
+      substack:
+        slug: ""
+        enabled: false
+      github:
+        username: "simonw"
+        enabled: true
+        watch_repos: ["llm", "datasette", "shot-scraper"]
+      youtube:
+        channel_id: ""
+        enabled: false
+      xiaohongshu:
+        uid: ""
+        enabled: false
+
+  # -- Example 4: YouTube tech channel -------------------------
+  - id: matt-wolfe
+    name: "Matt Wolfe"
+    tags: [AI-Tools, YouTube]
+    note: "Popular YouTube reviewer of AI tools and products"
+    platforms:
+      twitter:
+        handle: "@mreflow"
+        enabled: true
+      youtube:
+        channel_id: "UCPkPzSCZHDY4faNL2DTQMYQ"  # from channel About page
+        enabled: true
+        max_videos: 5               # max number of recent videos to fetch
+      substack:
+        slug: "mattwolfe"
+        enabled: false
+      github:
+        username: ""
+        enabled: false
+      xiaohongshu:
+        uid: ""
+        enabled: false
+
+  # -- Example 5: RAG / vector database focus ------------------
+  - id: jerry-liu
+    name: "Jerry Liu (LlamaIndex)"
+    tags: [RAG, LlamaIndex, AI-Engineering]
+    note: "Co-founder of LlamaIndex, authority on RAG techniques"
+    platforms:
+      twitter:
+        handle: "@jerryjliu0"
+        enabled: true
+      substack:
+        slug: "llamaindex"
+        enabled: true
+      github:
+        username: "jerryjliu"
+        enabled: true
+        watch_repos: ["llama_index"]
+      youtube:
+        channel_id: ""
+        enabled: false
+      xiaohongshu:
+        uid: ""
+        enabled: false
+
+# ============================================================
+# Add a new blogger — copy this template and fill it in
+# ============================================================
+# - id: unique-slug
+#   name: "Display Name"
+#   tags: [Tag1, Tag2]
+#   note: "One-line note explaining why you're tracking this person"
+#   platforms:
+#     twitter:
+#       handle: "@handle"
+#       enabled: false
+#     xiaohongshu:
+#       uid: ""
+#       enabled: false
+#     youtube:
+#       channel_id: ""
+#       enabled: false
+#       max_videos: 5
+#     substack:
+#       slug: ""
+#       enabled: false
+#     github:
+#       username: ""
+#       enabled: false
+#       watch_repos: []

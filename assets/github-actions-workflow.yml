@@ -1,0 +1,95 @@
+# .github/workflows/blogger-radar.yml
+# Runs the Blogger Radar daily at 08:00 Beijing time (UTC 00:00).
+#
+# First-time setup:
+#   1. Copy this file into your repo under .github/workflows/
+#   2. Add the required secrets under repo Settings → Secrets and variables → Actions
+#   3. Commit config/bloggers.yaml and config/push.yaml to the repo
+#   4. Push — the workflow triggers automatically at the next scheduled time
+
+name: Blogger Radar Daily Briefing
+
+on:
+  schedule:
+    # UTC 00:00 = Beijing 08:00 / London 00:00 / New York 19:00 (prev. day)
+    - cron: "0 0 * * *"
+
+  # Allow manual trigger for testing
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run (generate report, no push)"
+        required: false
+        default: "false"
+        type: boolean
+      blogger_id:
+        description: "Only process this blogger ID (leave empty for all)"
+        required: false
+        default: ""
+
+jobs:
+  radar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r blogger-radar/requirements.txt
+
+      - name: Copy config files if missing
+        run: |
+          [ -f blogger-radar/config/bloggers.yaml ] || cp blogger-radar/config/bloggers.example.yaml blogger-radar/config/bloggers.yaml
+          [ -f blogger-radar/config/push.yaml ] || cp blogger-radar/config/push.example.yaml blogger-radar/config/push.yaml
+
+      - name: Run Blogger Radar
+        env:
+          # Required
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          # Notion (if enabled)
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_DATABASE_ID: ${{ secrets.NOTION_DATABASE_ID }}
+          # Email (if enabled)
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASS: ${{ secrets.SMTP_PASS }}
+          # WeChat Work (if enabled)
+          WECHAT_WEBHOOK_URL: ${{ secrets.WECHAT_WEBHOOK_URL }}
+          # Twitter/X (optional — falls back to Nitter RSS if not set)
+          TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+          # YouTube (optional)
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          # GitHub (optional — raises rate limit from 60 to 5000 req/hr)
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Xiaohongshu via RSSHub (optional — self-hosted instance recommended)
+          RSSHUB_BASE_URL: ${{ secrets.RSSHUB_BASE_URL }}
+          RSSHUB_ACCESS_KEY: ${{ secrets.RSSHUB_ACCESS_KEY }}
+        run: |
+          DRY_RUN_FLAG=""
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            DRY_RUN_FLAG="--dry-run"
+          fi
+
+          BLOGGER_FLAG=""
+          if [ -n "${{ inputs.blogger_id }}" ]; then
+            BLOGGER_FLAG="--blogger ${{ inputs.blogger_id }}"
+          fi
+
+          cd blogger-radar
+          python scripts/run_radar.py $DRY_RUN_FLAG $BLOGGER_FLAG
+
+      - name: Upload error logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: radar-error-log-${{ github.run_id }}
+          path: blogger-radar/logs/
+          retention-days: 7

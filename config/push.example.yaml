@@ -1,0 +1,102 @@
+# ============================================================
+# blogger-radar / config / push.example.yaml
+# Reference template for push.yaml (used in GitHub Actions mode)
+# ============================================================
+# In OpenClaw / Claude Code agent mode, delivery config lives in
+# ~/.blogger-radar/config.json (set up interactively on first run).
+#
+# This file is only needed when running in GitHub Actions mode,
+# where the agent is not present and you manage config manually.
+#
+# Sensitive credentials (tokens, passwords) must be stored in
+# GitHub Secrets or .env — never commit them here.
+# ============================================================
+
+# ============================================================
+# Report Language
+# ============================================================
+#   "en"        → English only (default)
+#   "zh"        → Chinese only
+#   "bilingual" → English + Chinese, section by section
+# ============================================================
+language: "en"
+
+# -- Report content --------------------------------------------
+report:
+  days_lookback: 7                  # how many days of activity to fetch
+  max_posts_per_blogger: 10         # max posts per blogger per platform
+
+# ============================================================
+# Delivery Channels
+# Priority order (recommended): Notion → Email → Slack → Discord → Telegram → Feishu → WeChat
+# Enable each channel by setting enabled: true and providing credentials in .env / GitHub Secrets.
+# ============================================================
+
+# -- Notion (best for knowledge workers and searchable archives) -------
+notion:
+  enabled: false
+  database_id: "${NOTION_DATABASE_ID}"
+  # Required: create a Notion Integration, share database with it.
+  # See references/deploy.md → Notion section for database property schema.
+  page_icon: "📡"
+  properties:
+    title_field: "Name"
+    date_field: "Date"
+    status_field: "Status"
+    tags_field: "Tags"
+
+# -- Email (universal, zero setup friction) ----------------------------
+email:
+  enabled: false
+  to:
+    - "your@email.com"
+  subject_template: "📡 Blogger Radar | {date} | {blogger_count} bloggers"
+  smtp:
+    host: "${SMTP_HOST}"            # e.g. smtp.gmail.com
+    port: 587
+    use_tls: true
+    username: "${SMTP_USER}"
+    password: "${SMTP_PASS}"
+  # Recommended providers:
+  #   Resend (resend.com) — free tier: 100 emails/day
+  #   Gmail SMTP — enable 2FA + create an App Password
+
+# -- Slack (best for tech teams) ---------------------------------------
+slack:
+  enabled: false
+  webhook_url: "${SLACK_WEBHOOK_URL}"
+  # Create an Incoming Webhook at api.slack.com/apps
+  # Each message posts one embed per blogger.
+  username: "Blogger Radar"
+  icon_emoji: ":satellite_antenna:"
+
+# -- Discord (best for developer communities) --------------------------
+discord:
+  enabled: false
+  webhook_url: "${DISCORD_WEBHOOK_URL}"
+  # Channel Settings → Integrations → Webhooks → New Webhook
+  username: "Blogger Radar"
+
+# -- Telegram (popular with global tech audiences) ---------------------
+telegram:
+  enabled: false
+  bot_token: "${TELEGRAM_BOT_TOKEN}"
+  chat_id: "${TELEGRAM_CHAT_ID}"
+  # 1. Create a bot via @BotFather → copy token
+  # 2. Add bot to your target chat/channel (make it admin for channels)
+  # 3. Find chat_id: send a message, then GET /getUpdates
+
+# -- Feishu / Lark (for East Asian enterprise users) -------------------
+feishu:
+  enabled: false
+  webhook_url: "${FEISHU_WEBHOOK_URL}"
+  # secret: "${FEISHU_BOT_SECRET}"  # uncomment if signature verification is enabled
+  # Group chat → Settings → Bots → Add Bot → Custom Bot
+
+# -- WeChat Work (for Chinese enterprise users) ------------------------
+wechat:
+  enabled: false
+  webhook_url: "${WECHAT_WEBHOOK_URL}"
+  # Add a group robot → copy Webhook URL
+  message_format: "markdown"
+  max_length: 4096

@@ -1,0 +1,10 @@
+.env*
+config/bloggers.yaml
+config/push.yaml
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+logs/
+*.log
+.claude/
